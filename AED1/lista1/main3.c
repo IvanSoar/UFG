@@ -19,6 +19,6 @@ int main(){
     if(res > max){
         printf("overflow\n");
     } else {
-        printf("ok\n");
+        printf("no overflow\n");
     }
 }
