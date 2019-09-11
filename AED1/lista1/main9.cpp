@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
         tamanhoNum1 = string1.length();     
     }   
     
-    std::cout << std::string::stoi(string1[0]) << std::endl;
+    //std::cout << std::string::stoi(string1[0]) << std::endl;
     std::cout << string1[1] << std::endl;
     std::cout << string1[2] << std::endl;
 
