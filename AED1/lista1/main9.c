@@ -1,33 +1,95 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int verificaTamanho(int *);
+int* stringInt(char*);
 
-int main(int argc, char const *argv[])
+int main()
 {
-    int casos, num1[40], num2[40], i, tamNum1, tamNum2;
+    char string1[50];
+    char string2[50];
+    int resultado[10000];
+    int i, casos, l;
 
     scanf("%d", &casos);
 
-    for(i = 0; i < casos; i++){
-        scanf("%s", &num1);
-        scanf("%s", &num2);
+    for(l = 0; l < casos; l++){
+        scanf("%s", string1);
+        scanf("%s", string2);
+
+        int* numero1= stringInt(string1);
+        int* numero2 = stringInt(string2);
+
+        int menor = numero1[0] > numero2[0] ? numero2[0] : numero1[0];
+        int auxiliar = 0;
+
+        for (i = 0; i < menor; i++)
+        {
+            resultado[i] = numero1[i+1] * numero2[i+1] + auxiliar;
+
+            if(resultado[i] > 9){
+                auxiliar = resultado[i] / 10;
+                resultado[i] %= 10;
+            } else {
+                auxiliar = 0;
+            }
+        }
+
+        int* vetorMaior = numero1[0] > numero2[0] ? numero1 : numero2;
+
+        for (i = menor; i < vetorMaior[0]; i++)
+        {
+            resultado[i] = vetorMaior[i + 1] + auxiliar;
+
+            if(resultado[i] > 9){
+                auxiliar = resultado[i] / 10;
+                resultado[i] %= 10;
+            } else {
+                auxiliar = 0;
+            }
+        }
+
+        if(auxiliar > 0){
+            resultado[vetorMaior[0]] = auxiliar;
+            resultado[vetorMaior[0] + 1] = -1;
+        } else {
+            resultado[vetorMaior[0]] = -1;
+        }
+        
+
+        int tamanhoResultado = 0;
+        for (i = 0; resultado[i] != -1; i++)
+        {
+            tamanhoResultado++;
+        }
+
+        for (i = tamanhoResultado - 1; i >=0; i--)
+        {
+            printf("%d", resultado[i]);
+        }
+        printf("\n");
     }
-
-    // tamNum1 = verificaTamanho(num1);
-    // tamNum2 = verificaTamanho(num2);
-    printf("%d\n", verificaTamanho(num1));
-    printf("%d\n", verificaTamanho(num2));
-
-    return 0;
 }
 
-int verificaTamanho(int * numero){
-    int i;
-    for(i = 0; 1; i++){
-        printf("%d\n", (int)numero[i]);
-        if(numero[i] == '\0' || numero[i] == '\n'){
-            return i;
+int* stringInt(char* string)
+{
+    int tamanho, i, j;
+    for (i = 0;; i++)
+    {
+        if(string[i] == '\0')
+        {
+            tamanho = i;
+            break;
         }
     }
-}
+
+    int* vetor = (int*) malloc((sizeof(int) * tamanho) + 1);
     
+    vetor[0] = tamanho;
+
+    for (i = tamanho - 1, j = 1; i >= 0; i--, j++)
+    {
+        vetor[j] = string[i] - '0';
+    }
+    
+    return vetor;
+}
