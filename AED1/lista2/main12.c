@@ -19,16 +19,15 @@ int main()
     {
         for (j = 0; j < colunas; j++)
         {
-            // scanf("%d %d", labirinto[i][j].x, labirinto[i][j].y);
-            // printf("status (%d x %d): %d\n", labirinto[i][j].x, labirinto[i][j].y, labirinto[i][j].status);
+            scanf("%d %d", &labirinto[i][j].x, &labirinto[i][j].y);
         }        
     }
 
-    //scanf("%d %d", &xInicial, &yInicial);
+    scanf("%d %d", &xInicial, &yInicial);
 
-    //resultado = percorreLabirinto(labirinto, xInicial, yInicial);
+    resultado = percorreLabirinto(labirinto, xInicial, yInicial);
 
-    //resultado == 0 ? printf("PRESO\n") : printf("VENCE\n");
+    resultado == 0 ? printf("PRESO\n") : printf("VENCE\n");
 }
 
 celula** alocaMatrizCelulas(int linhas, int colunas)
@@ -41,7 +40,6 @@ celula** alocaMatrizCelulas(int linhas, int colunas)
         for(j = 0; j < colunas; j++)
         {
             matriz[i][j].status = 0;
-            printf("Alocado (%d x %d): status %d\n", i + 1, j + 1, matriz[i][j].status);
         }
     }
     return matriz;
@@ -49,6 +47,15 @@ celula** alocaMatrizCelulas(int linhas, int colunas)
 
 int percorreLabirinto(celula **labirinto, int x, int y)
 {
-   printf("%d\n", labirinto[0][0].status);
-   return 1;
+   if(labirinto[x][y].status == 1)
+   {
+       return 0;
+   } else if(labirinto[x][y].x == 0 && labirinto[x][y].y == 0)
+   {
+       return 1;
+   } else
+   {
+       labirinto[x][y].status = 1;
+       percorreLabirinto(labirinto, labirinto[x][y].x,labirinto[x][y].y);
+   }
 }
