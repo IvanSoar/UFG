@@ -1,2 +1,2 @@
-if(numero == 1 || numero == 2)
-        return 1;
+scanf("%d %d", labirinto[i][j].x, labirinto[i][j].y);
+            // pr
