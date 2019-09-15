@@ -44,29 +44,27 @@ celula** alocaMatrizCelulas(int linhas, int colunas)
 
 int percorreLabirinto(celula **labirinto, int x, int y)
 {
-   if(labirinto[x][y].status == 1)
-   {
-       return 0;
-   } else if(labirinto[x][y].x == 0 && labirinto[x][y].y == 0)
-   {
-       return 1;
-   } else
-   {
-       labirinto[x][y].status = 1;
-       percorreLabirinto(labirinto, labirinto[x][y].x,labirinto[x][y].y);
-   }
+    if(labirinto[x][y].x == 0 && labirinto[x][y].y == 0)
+    {
+        return 1;
+    } else if(labirinto[x][y].status == 1)
+    {
+        return 0;
+    } else
+    {
+        labirinto[x][y].status = 1;
+        percorreLabirinto(labirinto, labirinto[x][y].x,labirinto[x][y].y);
+    }
 }
 
 int casasOK(celula** matriz, int linhas, int colunas){
     int contador = 0, i, j;
-
     for (i = 0; i < linhas; i++)
     {
         for (j = 0; j < colunas; j++)
         {
-            contador += percorreLabirinto(matriz, i, j) ? 1 : 0;
+            contador += percorreLabirinto(matriz, i, j);         
         }
-    }    
-
+    }
     return contador;
 }
