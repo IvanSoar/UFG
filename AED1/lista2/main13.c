@@ -7,6 +7,7 @@ typedef struct Celula {
 
 int percorreLabirinto(celula**, int, int);
 celula** alocaMatrizCelulas(int, int);
+void resetaStatus(celula**, int, int);
 int casasOK(celula**, int, int);
 
 int main()
@@ -15,6 +16,7 @@ int main()
 
     scanf("%d %d", &linhas, &colunas);
     celula** labirinto = alocaMatrizCelulas(linhas, colunas);
+    resetaStatus(labirinto, linhas, colunas);
 
     for (i = 0; i < linhas; i++)
     {
@@ -34,10 +36,6 @@ celula** alocaMatrizCelulas(int linhas, int colunas)
     for (i = 0; i < linhas; i++)
     {
         matriz[i] = (celula*) malloc(sizeof(celula) * colunas);
-        for(j = 0; j < colunas; j++)
-        {
-            matriz[i][j].status = 0;
-        }
     }
     return matriz;
 }
@@ -63,8 +61,21 @@ int casasOK(celula** matriz, int linhas, int colunas){
     {
         for (j = 0; j < colunas; j++)
         {
+            resetaStatus(matriz, linhas, colunas);
             contador += percorreLabirinto(matriz, i, j);         
         }
     }
     return contador;
+}
+
+void resetaStatus(celula** matriz, int linhas, int colunas)
+{
+    int i, j;
+    for (i = 0; i < linhas; i++)
+    {
+        for(j = 0; j < colunas; j++)
+        {
+            matriz[i][j].status = 0;
+        }
+    }
 }
