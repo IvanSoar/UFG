@@ -1,22 +1,25 @@
 #include <stdio.h>
 
 int fibonacci(int);
+void fibonacciOrdinal(int);
 
 int main()
 {
     int ordinal;
     scanf("%d", &ordinal);
-
-    printf("%d", fibonacci(ordinal));
+    fibonacciOrdinal(ordinal);
 }
 
 int fibonacci(int numero)
 {
-    if(numero == 0)
-        return 0;
+    if(numero < 2) {
+        return numero;
+    } else {        
+        return fibonacci(numero - 1) + fibonacci(numero - 2);
+    }
+}
 
-    if(numero == 1 || numero == 2)
-        return 1;
-
-    printf("%d ", fibonacci(numero - 1) + fibonacci(numero - 2));
+void fibonacciOrdinal(int numero){
+    numero > 0? fibonacciOrdinal(numero - 1):1;
+    printf("%d ",fibonacci(numero));
 }
