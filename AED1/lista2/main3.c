@@ -48,6 +48,7 @@ int batalhaNaval(char** tabuleiro, int disparos)
     for(i = 0; i < disparos; i++){
         scanf("%d %d", &x, &y);
         tabuleiro[x][y] = tabuleiro[x][y] == 'a' ? tabuleiro[x][y] : '0';
+        tabuleiro[x][y] = tabuleiro[x][y] == '#' ? tabuleiro[x][y] : '.';
     }
 
     return verificaNavios(tabuleiro, 0, 0);
@@ -64,7 +65,7 @@ void imprimeCampo(char** campoBatalha, int linhas, int colunas)
     }
 }
 
-int verificaNavios(char**, int x, int y){
+int verificaNavios(char** tabuleiro, int x, int y){
     int i, j;
 
     if(){
