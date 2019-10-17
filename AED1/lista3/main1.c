@@ -15,7 +15,7 @@ int main()
     int entrada;
     scanf("%d", &entrada);
 
-    while (entrada != 0)
+    while (entrada > 0)
     {
         racional temp = retornaRacionalPos(entrada);
 
