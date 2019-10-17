@@ -8,12 +8,15 @@ int main()
 {
     int casos, i;
     scanf("%d", &casos);
-    while (casos--)
+    getchar();
+    while (casos > 0)
     {
         char palavra[10001];
-        scanf("%s", &palavra);
+        scanf("%[^\n]", &palavra);
+        getchar();
 
         printf("%d\n", contaVogais(palavra));
+        casos--;
     }
     return 0;
 }

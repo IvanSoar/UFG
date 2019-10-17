@@ -1,0 +1,9 @@
+1
+7 2
+L L L L L L P
+L L L L L L L
+L P L L L P L
+L L L L L L L
+L L L P L L L
+L L L L L P L
+P P P L L L L

@@ -9,7 +9,7 @@ int main()
     int i, j, casos, tamanhoMinimundo, distPL;
     scanf("%d", &casos);
 
-    while (casos)
+    while (casos > 0)
     {
         scanf("%d %d", &tamanhoMinimundo, &distPL);
         getchar();
