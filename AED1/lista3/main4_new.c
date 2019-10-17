@@ -61,14 +61,19 @@ char **alocaMundo(int tamanhoMundo)
 
 int verificaAlcance(char **mundo, int tamanho, int alcance, int i, int j)
 {
-    if ((j - alcance >= 0) && mundo[i][j - alcance] == 'L')
+    int k;
+    for (k = 1; k <= alcance; k++)
     {
-        return 1;
+        if ((j - k >= 0) && mundo[i][j - k] == 'L')
+        {
+            mundo[i][j - k] = 'X';
+            return 1;
+        }
+        if ((j + k < tamanho) && mundo[i][j + k] == 'L')
+        {
+            mundo[i][j + k] = 'X';
+            return 1;
+        }
     }
-    else if ((j + alcance < tamanho) && mundo[i][j + alcance] == 'L')
-    {
-        return 1;
-    }
-    
     return 0;
 }
