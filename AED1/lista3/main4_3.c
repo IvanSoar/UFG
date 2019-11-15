@@ -2,9 +2,10 @@
 #include <stdlib.h>
 
 char **alocaMatriz(int);
-void imprimeMatriz(char **, int);
+int resultado(char **, int, int);
+void liberaMatriz(char**, int);
 
-int main(int argc, char const *argv[])
+int main()
 {
     int tamanho, casos, i, range;
 
@@ -15,14 +16,17 @@ int main(int argc, char const *argv[])
         scanf("%d", &range);
 
         char **miniMundo = alocaMatriz(tamanho);
-        //imprimeMatriz(miniMundo, tamanho);
+
+        printf("%d\n", resultado(miniMundo, tamanho, range));
+
+        liberaMatriz(miniMundo, tamanho);
     }
-    
 
     return 0;
 }
 
-char **alocaMatriz(int tamanho){
+char **alocaMatriz(int tamanho)
+{
     int i, j;
     char **temp = (char **)malloc(sizeof(char*) * tamanho);
     for (i = 0; i < tamanho; i++)
@@ -37,15 +41,37 @@ char **alocaMatriz(int tamanho){
     return temp;
 }
 
-void imprimeMatriz(char ** matriz, int tamanho)
+int resultado(char **matriz, int tamanho, int range)
 {
-    int i, j;
+    int i, j, k, contador = 0;
     for (i = 0; i < tamanho; i++)
     {
         for (j = 0; j < tamanho; j++)
         {
-            printf("%c ", matriz[i][j]);
+            if(matriz[i][j] == 'P')
+            {
+                int min = j - range < 0 ? 0 : j - range;
+                int max = j + range > tamanho ? tamanho : j + range;
+
+                for (k = min; k <= max; k++)
+                {
+                    if(matriz[i][k] == 'L'){
+                        matriz[i][k] = 'X';
+                        contador++;
+                        break;
+                    }
+                }
+            }
         }
-        printf("\n");
     }
+    return contador;
+}
+
+void liberaMatriz(char **matriz, int tamanho){
+    int i;
+    for (i = 0; i < tamanho; i++)
+    {
+        free(matriz[i]);
+    }
+    free(matriz);
 }
