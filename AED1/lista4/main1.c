@@ -36,16 +36,16 @@ void troca(int *a, int *b)
 
 void bolha(int *vetor, int tamanho, int *contador)
 {
-    int i;
-    if (tamanho < 1)
-        return;
-
-    for (i = 0; i < tamanho; i++)
-        if (vetor[i] > vetor[i + 1])
+    int i, j;
+    for (i = 0; i < tamanho - 1; i++)
+    {
+        for (j = i + 1; j < tamanho; j++)
         {
-            troca(&vetor[i], &vetor[i + 1]);
-            *contador = *contador + 1;
+            if (vetor[i] > vetor[j])
+            {
+                troca(&vetor[i], &vetor[j]);
+                *contador = *contador + 1;
+            }
         }
-
-    bolha(vetor, tamanho - 1, contador);
+    }
 }
