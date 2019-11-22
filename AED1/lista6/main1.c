@@ -5,14 +5,18 @@
 /**/
 
 typedef struct tipoPersonalizado conjunto;
-int criaConjunto(conjunto **);
-int conjuntoVazio(conjunto *);
-int insereElementoConjunto(int, conjunto **);
-void verificaCapacidade(conjunto **);
-int pertenceConjunto(int , conjunto *);
+
 void imprimeElementosConjunto(conjunto *);
-int excluiElementoConjunto(int, conjunto **);
-int tamanhoConjunto(conjunto *);
+void verificaCapacidade(conjunto **);
+
+int criaConjunto(conjunto **);                  //  #1 ok
+int conjuntoVazio(conjunto *);                  //  #2 ok
+int insereElementoConjunto(int, conjunto **);   //  #3 ok
+int excluiElementoConjunto(int, conjunto **);   //  #4 ok
+int tamanhoConjunto(conjunto *);                //  #5 ok
+int maior(int, conjunto *);                     //  #6 ok
+int menor(int, conjunto *);                     //  #7 ok
+int pertenceConjunto(int, conjunto *);          //  #8 ok
 
 /**/
 
@@ -124,6 +128,26 @@ int tamanhoConjunto(conjunto * pConjunto)
     return pConjunto->contagemElementos;
 }
 
+int maior(int elemento, conjunto * pConjunto)
+{
+    int contador = 0, i;
+    for (i = 0; i < pConjunto->contagemElementos; i++)
+    {
+        contador += pConjunto->elementos[i] > elemento ? 1 : 0;
+    }
+    return contador;
+}
+
+int menor(int elemento, conjunto *pConjunto)
+{
+    int contador = 0, i;
+    for (i = 0; i < pConjunto->contagemElementos; i++)
+    {
+        contador += pConjunto->elementos[i] < elemento ? 1 : 0;
+    }
+    return contador;
+}
+
 /**/
 
 int main()
@@ -145,13 +169,6 @@ int main()
 
     imprimeElementosConjunto(C);
 
-    excluiElementoConjunto(5, &C);
-    excluiElementoConjunto(10, &C);
-    excluiElementoConjunto(15, &C);
-    excluiElementoConjunto(16, &C);
-    excluiElementoConjunto(26, &C);
-
-    excluiElementoConjunto(260, &C);
-
-    imprimeElementosConjunto(C);
+    int numero = 0;
+    printf("%d maiores que %d e %d menores que %d.\n", maior(numero, C), numero, menor(numero, C), numero);
 }
