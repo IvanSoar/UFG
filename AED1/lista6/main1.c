@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #define CAPACIDADE_INICIAL_CONJUNTO 10
 
-/**/
-
+// tad.h
 typedef struct tipoPersonalizado conjunto;
 
 void imprimeElementosConjunto(conjunto *);
@@ -24,8 +23,7 @@ conjunto *complemento(conjunto *, conjunto *);  // #11 ok
 conjunto *uniao(conjunto *, conjunto *);        // #12 ok
 conjunto *interseccao(conjunto *, conjunto *);  // #13 
 
-/**/
-
+//tad.c
 typedef struct tipoPersonalizado
 {
     int *elementos;
@@ -241,11 +239,10 @@ conjunto *uniao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 
 conjunto *interseccao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 {
-    
+    //aqui!!!!
 }
 
-/**/
-
+//main.c
 int main()
 {
     conjunto * conjuntoA;
