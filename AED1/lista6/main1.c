@@ -239,13 +239,13 @@ conjunto *uniao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 
 conjunto *interseccao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 {
-    int i;
-    int elemento = pConjuntoA->elementos[i];
+    int i, elemento;
     conjunto *conjuntoInters;
     criaConjunto(&conjuntoInters);
 
     for(i = 0; i < pConjuntoA->contagemElementos; i++)
     {
+        elemento = pConjuntoA->elementos[i];
         if (pertenceConjunto(elemento, pConjuntoA) && pertenceConjunto(elemento, pConjuntoB))
         {
             insereElementoConjunto(elemento, &conjuntoInters);
