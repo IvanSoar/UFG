@@ -1,0 +1,2 @@
+
+    imprimeElementosConjunto(conjuntoB);

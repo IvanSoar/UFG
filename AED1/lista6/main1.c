@@ -239,7 +239,19 @@ conjunto *uniao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 
 conjunto *interseccao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 {
-    //aqui!!!!!
+    int i;
+    int elemento = pConjuntoA->elementos[i];
+    conjunto *conjuntoInters;
+    criaConjunto(&conjuntoInters);
+
+    for(i = 0; i < pConjuntoA->contagemElementos; i++)
+    {
+        if (pertenceConjunto(elemento, pConjuntoA) && pertenceConjunto(elemento, pConjuntoB))
+        {
+            insereElementoConjunto(elemento, &conjuntoInters);
+        }
+    }
+    return conjuntoInters;
 }
 
 //main.c
@@ -257,14 +269,20 @@ int main()
     insereElementoConjunto(2, &conjuntoB);
     insereElementoConjunto(3, &conjuntoB);
 
-    imprimeElementosConjunto(conjuntoA);
-    imprimeElementosConjunto(conjuntoB);
-
     conjunto * complementoAB = complemento(conjuntoA, conjuntoB);
     conjunto * uniaoAB = uniao(conjuntoA, conjuntoB);
+    conjunto * interseccaoAB = interseccao(conjuntoA, conjuntoB);
 
+    printf("Conjunto A: ");
+    imprimeElementosConjunto(conjuntoA);
+    printf("Conjunto B: ");
+    imprimeElementosConjunto(conjuntoB);
+    printf("Complemento de A em B: ");
     imprimeElementosConjunto(complementoAB);
+    printf("Uniao AB: ");
     imprimeElementosConjunto(uniaoAB);
+    printf("Interseccao AB: ");
+    imprimeElementosConjunto(interseccaoAB);
 
     printf("%s\n", subconjunto(conjuntoA, conjuntoB) ? "O conjunto A e subconjunto do B" : "O conjunto A nao e subconjunto do B");
     printf("%s\n", conjuntosIdenticos(conjuntoA, conjuntoB) ? "Os conjuntos sao identicos" : "Os conjuntos nao sao identicos");
