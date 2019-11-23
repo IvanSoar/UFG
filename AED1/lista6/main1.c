@@ -239,7 +239,7 @@ conjunto *uniao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 
 conjunto *interseccao(conjunto *pConjuntoA, conjunto *pConjuntoB)
 {
-    //aqui!!!!
+    //aqui!!!!!
 }
 
 //main.c
