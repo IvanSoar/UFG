@@ -21,7 +21,8 @@ int conjuntosIdenticos(conjunto *, conjunto *); //  #9 ok
 int subconjunto(conjunto *, conjunto *);        // #10 ok
 conjunto *complemento(conjunto *, conjunto *);  // #11 ok
 conjunto *uniao(conjunto *, conjunto *);        // #12 ok
-conjunto *interseccao(conjunto *, conjunto *);  // #13 
+conjunto *interseccao(conjunto *, conjunto *);  // #13 ok
+conjunto *diferenca(conjunto *, conjunto *);    // #14 ok
 
 //tad.c
 typedef struct tipoPersonalizado
@@ -254,6 +255,23 @@ conjunto *interseccao(conjunto *pConjuntoA, conjunto *pConjuntoB)
     return conjuntoInters;
 }
 
+conjunto *diferenca(conjunto *pConjuntoA, conjunto *pConjuntoB)
+{
+    int i, elemento;
+    conjunto *conjuntoDif;
+    criaConjunto(&conjuntoDif);
+
+    for (i = 0; i < pConjuntoA->contagemElementos; i++)
+    {
+        elemento = pConjuntoA->elementos[i];
+        if(!pertenceConjunto(elemento, pConjuntoB))
+        {
+            insereElementoConjunto(elemento, &conjuntoDif);
+        }
+    }
+    return conjuntoDif;
+}
+
 //main.c
 int main()
 {
@@ -272,6 +290,7 @@ int main()
     conjunto * complementoAB = complemento(conjuntoA, conjuntoB);
     conjunto * uniaoAB = uniao(conjuntoA, conjuntoB);
     conjunto * interseccaoAB = interseccao(conjuntoA, conjuntoB);
+    conjunto *diferencaAB = diferenca(conjuntoA, conjuntoB);
 
     printf("Conjunto A: ");
     imprimeElementosConjunto(conjuntoA);
@@ -283,6 +302,8 @@ int main()
     imprimeElementosConjunto(uniaoAB);
     printf("Interseccao AB: ");
     imprimeElementosConjunto(interseccaoAB);
+    printf("Diferenca AB: ");
+    imprimeElementosConjunto(diferencaAB);
 
     printf("%s\n", subconjunto(conjuntoA, conjuntoB) ? "O conjunto A e subconjunto do B" : "O conjunto A nao e subconjunto do B");
     printf("%s\n", conjuntosIdenticos(conjuntoA, conjuntoB) ? "Os conjuntos sao identicos" : "Os conjuntos nao sao identicos");
