@@ -19,6 +19,10 @@ int maior(int, conjunto *);                     //  #6 ok
 int menor(int, conjunto *);                     //  #7 ok
 int pertenceConjunto(int, conjunto *);          //  #8 ok
 int conjuntosIdenticos(conjunto *, conjunto *); //  #9 ok
+int subconjunto(conjunto *, conjunto *);        // #10 ok
+conjunto *complemento(conjunto *, conjunto *);  // #11 ok
+conjunto *uniao(conjunto *, conjunto *);        // #12 ok
+conjunto *interseccao(conjunto *, conjunto *);  // #13 
 
 /**/
 
@@ -186,6 +190,60 @@ int conjuntosIdenticos(conjunto * pConjuntoA, conjunto * pConjuntoB)
     }
 }
 
+int subconjunto(conjunto * pConjuntoA, conjunto * pConjuntoB)
+{
+    if(pConjuntoA->contagemElementos <= pConjuntoB->contagemElementos)
+    {
+        int i;
+        for (i = 0; i < pConjuntoA->contagemElementos; i++)
+        {
+            if(!pertenceConjunto(pConjuntoA->elementos[i], pConjuntoB))
+            {
+                return 0;
+            }
+        }
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }    
+}
+
+conjunto *complemento(conjunto *pConjuntoA, conjunto *pConjuntoB)
+{
+    conjunto *conjuntoComplemento;
+    criaConjunto(&conjuntoComplemento);
+    int i;
+    for (i = 0; i < pConjuntoB->contagemElementos; i++)
+    {
+        if(!pertenceConjunto(pConjuntoB->elementos[i], pConjuntoA))
+        {
+            insereElementoConjunto(pConjuntoB->elementos[i], &conjuntoComplemento);
+        }
+    }
+    return conjuntoComplemento;
+}
+
+conjunto *uniao(conjunto *pConjuntoA, conjunto *pConjuntoB)
+{
+    conjunto *conjuntoUniao;
+    criaConjunto(&conjuntoUniao);
+
+    int i, j;
+    for (i = 0, j = 0; i < pConjuntoA->contagemElementos, j < pConjuntoB->contagemElementos; i++, j++)
+    {
+        insereElementoConjunto(pConjuntoA->elementos[i], &conjuntoUniao);
+        insereElementoConjunto(pConjuntoB->elementos[j], &conjuntoUniao);
+    }
+    return conjuntoUniao;
+}
+
+conjunto *interseccao(conjunto *pConjuntoA, conjunto *pConjuntoB)
+{
+    
+}
+
 /**/
 
 int main()
@@ -196,25 +254,21 @@ int main()
     conjunto *conjuntoB;
     criaConjunto(&conjuntoB);
 
-    insereElementoConjunto(5, &conjuntoA);
-    insereElementoConjunto(55, &conjuntoA);
-    insereElementoConjunto(25, &conjuntoA);
-    insereElementoConjunto(75, &conjuntoA);
-    insereElementoConjunto(45, &conjuntoA);
-
-    insereElementoConjunto(5, &conjuntoB);
-    insereElementoConjunto(15, &conjuntoB);
-    insereElementoConjunto(25, &conjuntoB);
-    insereElementoConjunto(35, &conjuntoB);
-    insereElementoConjunto(45, &conjuntoB);
-
-    excluiElementoConjunto(55, &conjuntoA);
-    excluiElementoConjunto(75, &conjuntoA);
-    excluiElementoConjunto(15, &conjuntoB);
-    excluiElementoConjunto(35, &conjuntoB);
+    insereElementoConjunto(1, &conjuntoA);
+    insereElementoConjunto(2, &conjuntoA);
+    
+    insereElementoConjunto(2, &conjuntoB);
+    insereElementoConjunto(3, &conjuntoB);
 
     imprimeElementosConjunto(conjuntoA);
     imprimeElementosConjunto(conjuntoB);
 
+    conjunto * complementoAB = complemento(conjuntoA, conjuntoB);
+    conjunto * uniaoAB = uniao(conjuntoA, conjuntoB);
+
+    imprimeElementosConjunto(complementoAB);
+    imprimeElementosConjunto(uniaoAB);
+
+    printf("%s\n", subconjunto(conjuntoA, conjuntoB) ? "O conjunto A e subconjunto do B" : "O conjunto A nao e subconjunto do B");
     printf("%s\n", conjuntosIdenticos(conjuntoA, conjuntoB) ? "Os conjuntos sao identicos" : "Os conjuntos nao sao identicos");
 }

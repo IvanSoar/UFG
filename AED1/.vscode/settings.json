@@ -4,6 +4,7 @@
     "editor.formatOnType": true,
     "editor.formatOnSaveTimeout": 0,
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "algorithm": "c"
     }
 }
