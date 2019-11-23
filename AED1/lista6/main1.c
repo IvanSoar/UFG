@@ -8,6 +8,7 @@ typedef struct tipoPersonalizado conjunto;
 
 void imprimeElementosConjunto(conjunto *);
 void verificaCapacidade(conjunto **);
+void ordenaConjunto(conjunto *);
 
 int criaConjunto(conjunto **);                  //  #1 ok
 int conjuntoVazio(conjunto *);                  //  #2 ok
@@ -17,6 +18,7 @@ int tamanhoConjunto(conjunto *);                //  #5 ok
 int maior(int, conjunto *);                     //  #6 ok
 int menor(int, conjunto *);                     //  #7 ok
 int pertenceConjunto(int, conjunto *);          //  #8 ok
+int conjuntosIdenticos(conjunto *, conjunto *); //  #9 ok
 
 /**/
 
@@ -56,6 +58,7 @@ int insereElementoConjunto(int elemento, conjunto ** pConjunto)
     } else {
         (*pConjunto)->elementos[(*pConjunto)->contagemElementos] = elemento;
         (*pConjunto)->contagemElementos++;
+        ordenaConjunto((*pConjunto));
         return 1;
     }
 }
@@ -148,27 +151,70 @@ int menor(int elemento, conjunto *pConjunto)
     return contador;
 }
 
+void ordenaConjunto(conjunto * pConjunto)
+{
+    int i, j;
+    for (i = 0; i < pConjunto->contagemElementos - 1; i++)
+    {
+        for (j = i; j < pConjunto->contagemElementos; j++)
+        {
+            if(pConjunto->elementos[i] > pConjunto->elementos[j]){
+                int aux = pConjunto->elementos[i];
+                pConjunto->elementos[i] = pConjunto->elementos[j];
+                pConjunto->elementos[j] = aux;
+            }
+        }
+    }
+}
+
+int conjuntosIdenticos(conjunto * pConjuntoA, conjunto * pConjuntoB)
+{
+    int i, qtdA = pConjuntoA->contagemElementos;
+    if(qtdA == pConjuntoB->contagemElementos)
+    {
+        for (i = 0; i < qtdA; i++)
+        {
+            if(pConjuntoA->elementos[i] != pConjuntoB->elementos[i]){
+                return 0;
+            }
+        }
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 /**/
 
 int main()
 {
-    conjunto * C;
-    criaConjunto(&C);
+    conjunto * conjuntoA;
+    criaConjunto(&conjuntoA);
 
-    insereElementoConjunto(5, &C);
-    insereElementoConjunto(10, &C);
-    insereElementoConjunto(15, &C);
-    insereElementoConjunto(16, &C);
-    insereElementoConjunto(26, &C);
+    conjunto *conjuntoB;
+    criaConjunto(&conjuntoB);
 
-    insereElementoConjunto(5, &C);
-    insereElementoConjunto(10, &C);
-    insereElementoConjunto(15, &C);
-    insereElementoConjunto(16, &C);
-    insereElementoConjunto(26, &C);
+    insereElementoConjunto(5, &conjuntoA);
+    insereElementoConjunto(55, &conjuntoA);
+    insereElementoConjunto(25, &conjuntoA);
+    insereElementoConjunto(75, &conjuntoA);
+    insereElementoConjunto(45, &conjuntoA);
 
-    imprimeElementosConjunto(C);
+    insereElementoConjunto(5, &conjuntoB);
+    insereElementoConjunto(15, &conjuntoB);
+    insereElementoConjunto(25, &conjuntoB);
+    insereElementoConjunto(35, &conjuntoB);
+    insereElementoConjunto(45, &conjuntoB);
 
-    int numero = 0;
-    printf("%d maiores que %d e %d menores que %d.\n", maior(numero, C), numero, menor(numero, C), numero);
+    excluiElementoConjunto(55, &conjuntoA);
+    excluiElementoConjunto(75, &conjuntoA);
+    excluiElementoConjunto(15, &conjuntoB);
+    excluiElementoConjunto(35, &conjuntoB);
+
+    imprimeElementosConjunto(conjuntoA);
+    imprimeElementosConjunto(conjuntoB);
+
+    printf("%s\n", conjuntosIdenticos(conjuntoA, conjuntoB) ? "Os conjuntos sao identicos" : "Os conjuntos nao sao identicos");
 }
